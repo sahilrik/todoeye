@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class AddTaskScreens extends StatelessWidget {
-  const AddTaskScreens({Key? key}) : super(key: key);
+  final Function addTaskCallback;
+
+  AddTaskScreens(
+      {Key? key, this.newTaskTitle = '', required this.addTaskCallback})
+      : super(key: key);
+
+  String newTaskTitle;
 
   @override
   Widget build(BuildContext context) {
@@ -24,11 +31,16 @@ class AddTaskScreens extends StatelessWidget {
               textAlign: TextAlign.center,
               style: TextStyle(color: Colors.lightBlueAccent, fontSize: 30.0),
             ),
-            const TextField(
+            TextField(
               autofocus: true,
+              onChanged: (newtext) {
+                newTaskTitle = newtext;
+              },
             ),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                addTaskCallback(newTaskTitle);
+              },
               child: const Text(
                 'add',
                 style: TextStyle(color: Colors.white),
