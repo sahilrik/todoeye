@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:todoeye/models/task_data.dart';
 
 // ignore: must_be_immutable
 class AddTaskScreens extends StatelessWidget {
-  final Function addTaskCallback;
-
-  AddTaskScreens(
-      {Key? key, this.newTaskTitle = '', required this.addTaskCallback})
-      : super(key: key);
+  AddTaskScreens({
+    Key? key,
+    this.newTaskTitle = '',
+  }) : super(key: key);
 
   String newTaskTitle;
 
@@ -39,7 +40,9 @@ class AddTaskScreens extends StatelessWidget {
             ),
             ElevatedButton(
               onPressed: () {
-                addTaskCallback(newTaskTitle);
+                Provider.of<TaskData>(context, listen: false)
+                    .addTask(newTaskTitle);
+                Navigator.pop(context);
               },
               child: const Text(
                 'add',
